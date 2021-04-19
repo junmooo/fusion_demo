@@ -5,10 +5,7 @@ import Demo from "./Demo";
 import { Button, Loading, Notification } from "@alifd/next";
 
 export default class Demo3 extends Component {
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-  }
+
   state = {
     isLoading: false,
   };
@@ -24,34 +21,34 @@ export default class Demo3 extends Component {
     });
   };
 
-  handleClick(param) {
+  handleClick() {
     this.setState({ isLoading: true });
-    getPr3wnfjf("/hello/delay?ds=hi&type=" + param)
-      .then((data) => {
-        this.setState({ isLoading: false, data: data.data.data }, () => {
-        });
+
+    const todayPromise = getPr3wnfjf("/hello/delay?ds=hi&type=" + 1800);
+    const sevenPromise = getPr3wnfjf("/hello/delay?ds=hi&type=" + 800);
+    const fourteenPromise = getPr3wnfjf("/hello/delay?ds=hi&type=" + 2800);
+    const tweentyPromise = getPr3wnfjf("/hello/delay?ds=hi&type=" + 1000);
+
+    Promise.all([todayPromise, sevenPromise, fourteenPromise, tweentyPromise])
+      .then((res) => {
+        this.setState({ isLoading: false, data: res });
       })
-      .catch((e) => {
-        console.log(e);
-        this.setState({ isLoading: false, error: "接口报错了!!!!" }, () => {
-          this.openNotification();
-        });
+      .catch((error) => {
+        console.log(JSON.stringify(error));
+        this.setState({ isLoading: false, content: "报错了!" });
       });
   }
 
   render() {
     return (
-      <Loading tip="loading..."  visible={this.state.isLoading}>
+      <Loading tip="loading..." visible={this.state.isLoading}>
         <div>
           <div className="container">
             <h2>
               这是加载回来的数据:
-              {this.state.isLoading ? null : this.state.data}
+              {this.state.isLoading ? null : JSON.stringify(this.state.data)}
             </h2>
-            <h2>
-              这是路由地址: {this.props.location.pathname}
-              {this.state.isLoading ? null : this.state.data}
-            </h2>
+            <h2>这是路由地址: {this.props.location.pathname}</h2>
             <Button
               type="primary"
               size="large"
