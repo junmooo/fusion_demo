@@ -1,3 +1,7 @@
+.container {
+  background-color: #bbb;
+  width: 100vw;
+}
 .App {
   text-align: center;
 }
@@ -36,6 +40,6 @@
     transform: rotate(360deg);
   }
 }
-.slider-img-wrapper img{
+.slider-img-wrapper img {
   width: 100%;
 }

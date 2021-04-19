@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import Demo from "./Demo";
+import Demo2 from "./Demo2";
+import Demo3 from "./Demo3";
+import React from "react";
+// 引入路由
+import { HashRouter, Route, Link } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // 全局应用组件路由
+    // 此后所有内容 都在 HashRouter
+    <HashRouter>
+      <div>
+        <h1>组件路由</h1>
+        <Link to="/home">首页</Link>
+        <br />
+        <Link to="/movie">电影</Link>
+        <br />
+        <Link to="/demo3">HELLO</Link>
+        <hr></hr>
+        <Route path="/home" component={Demo}></Route>
+        <Route path="/movie" component={Demo2}></Route>
+        <Route path="/demo3" component={Demo3}></Route>
+      </div>
+    </HashRouter>
   );
 }
 
